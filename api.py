@@ -1,5 +1,5 @@
 import logging
-from rushstackclient.client import Client as rush_client
+from rushstackclient.v1.client import Client as rush_client
 from openstack_dashboard.api.base import url_for
 
 from django.conf import settings
@@ -19,31 +19,23 @@ def rushclient(request):
     insecure = getattr(settings, 'OPENSTACK_SSL_NO_VERIFY', False)
     LOG.debug('rushstackclient connection created using token "%s" and url "%s"'
             % (request.user.token.id, url))
-    return rush_client('1', url, token=t, insecure=insecure)
+    return rush_client(url, token=t, insecure=insecure)
 
 
-def get_status(request):
-    # get_status() -> (result, active, rush_id)
-    return rushclient(request).rush.get_status()
+def get_list(request):
+    return rushclient(request).rushes.get_list()
 
+def get_rush_data(request, rush_id):
+    rushes_list = get_list(request)
+    for item in rushes_list:
+        if item.id == rush_id:
+            return item
 
-def get_endpoint(request, rush_id):
-    return rushclient(request).rush.get_endpoint(rush_id)
-
-
-def create(request, rush_type_id):
-    return rushclient(request).rush.create(rush_type_id)
+def create(request, rush_type_id, rush_name):
+    return rushclient(request).rushes.create(rush_type_id, rush_name)
 
 
 def delete(request, rush_id):
-    return rushclient(request).rush.delete(rush_id)
-
-
-def delete_rush(request):
-    rush_id = get_status(request)[2]
-    delete(request, rush_id)
-    return
-
-
+    return rushclient(request).rushes.delete(rush_id)
 
 

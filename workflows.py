@@ -1,17 +1,22 @@
 from horizon import workflows, forms, exceptions
-from openstack_dashboard.api.base import url_for
-from rushstackclient.client import Client as rush_client
 from django.utils.translation import ugettext_lazy as _
-from .api import create, delete, get_status
+from .api import create
+import re
 
 
 class SelectSizeAction(workflows.Action):
     SIZE_CHOICES = (
-        ("0", _("Small")),
-        ("1", _("Medium")),
-        ("2", _("Large")),
+        ("1", _("Small")),
+        ("2", _("Medium")),
+        ("3", _("Large")),
     )
+    name = forms.CharField(label=_("Name"), required=True)
     size = forms.ChoiceField(label=_("Size"), choices=SIZE_CHOICES, required=True)
+
+    def clean(self):
+        cleaned_data = super(SelectSizeAction, self).clean()
+        cleaned_data['name'] = re.sub(' ', '_', cleaned_data['name'])
+        return cleaned_data
 
     def handle(self, request, data):
         return True
@@ -19,15 +24,15 @@ class SelectSizeAction(workflows.Action):
     class Meta:
         name = _("Select size")
         slug = "select_size"
-        help_text = _("Here you can select the size of the Rush Service")
+        help_text = _("Here you can select the name and size of the Rush Service")
 
 
-class SelectSize(workflows.Step):
+class SelectNameAndSize(workflows.Step):
     action_class = SelectSizeAction
-    contributes = ("size",)
+    contributes = ("size", "name",)
 
     class Meta:
-        name = _("Size")
+        name = _("Name and size")
 
 
 class EnableRush(workflows.Workflow):
@@ -37,11 +42,11 @@ class EnableRush(workflows.Workflow):
     success_message = _("Preparing your Rush Service...")
     failure_message = _("Unable to launch Rush.")
     success_url = "horizon:project:rushstack:index"
-    default_steps = (SelectSize,)
+    default_steps = (SelectNameAndSize,)
 
     def handle(self, request, context):
         try:
-            create(request, context["size"])
+            create(request, context["size"], context["name"])
             return True
         except:
             exceptions.handle(request)
