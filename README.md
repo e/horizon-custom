@@ -1,4 +1,7 @@
 tdaf-ost-horizonx
 =================
 
-Openstack panel for TDAF Services
+Openstack panels for TDAF Services
+
+For each panel, a subdirectory should be created to keep
+organized this repo.
