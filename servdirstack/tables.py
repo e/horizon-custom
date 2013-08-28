@@ -7,7 +7,7 @@ from horizon.utils.filters import replace_underscores
 class EnableLink(tables.LinkAction):
     name = "enable"
     verbose_name = _("Enable Service Directory")
-    url = "horizon:project:servdir:enable"
+    url = "horizon:project:servdirstack:enable"
     classes = ("btn-launch", "ajax-modal")
 
     def allowed(self, request, datum):

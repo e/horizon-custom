@@ -41,7 +41,7 @@ class EnableServDir(workflows.Workflow):
     finalize_button_name = _("Enable")
     success_message = _("Preparing your Service Directory Service...")
     failure_message = _("Unable to launch Service Directory.")
-    success_url = "horizon:project:servdir:index"
+    success_url = "horizon:project:servdirstack:index"
     default_steps = (SelectNameAndSize,)
 
     def handle(self, request, context):
