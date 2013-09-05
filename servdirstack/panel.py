@@ -6,7 +6,7 @@ from openstack_dashboard.dashboards.project import dashboard
 
 
 class ServDirStack(horizon.Panel):
-    name = _("ServDirStack")
+    name = _("Service Directory")
     slug = "servdirstack"
     # permissions = ('openstack.services.tdaf-service',)
 

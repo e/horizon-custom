@@ -24,7 +24,7 @@ class SelectSizeAction(workflows.Action):
     class Meta:
         name = _("Select size")
         slug = "select_size"
-        help_text = _("Here you can select the name and size of the Rush Service")
+        help_text = _("Here you can select the name and size of the Http Relayer Service")
 
 
 class SelectNameAndSize(workflows.Step):
@@ -37,11 +37,11 @@ class SelectNameAndSize(workflows.Step):
 
 class EnableRush(workflows.Workflow):
     slug = "enable_rush"
-    name = _("Enable Rush")
+    name = _("Enable Http Relayer")
     finalize_button_name = _("Enable")
-    success_message = _("Preparing your Rush Service...")
-    failure_message = _("Unable to launch Rush.")
-    success_url = "horizon:project:rushstack:index"
+    success_message = _("Preparing your Http Relayer Service...")
+    failure_message = _("Unable to launch Http Relayer.")
+    success_url = "horizon:project:httprelayer:index"
     default_steps = (SelectNameAndSize,)
 
     def handle(self, request, context):
