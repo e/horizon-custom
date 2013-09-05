@@ -7,8 +7,8 @@ from horizon.utils.filters import replace_underscores
 
 class EnableLink(tables.LinkAction):
     name = "enable"
-    verbose_name = _("Enable Rush")
-    url = "horizon:project:rushstack:enable"
+    verbose_name = _("Enable Http Relayer")
+    url = "horizon:project:httprelayer:enable"
     classes = ("btn-launch", "ajax-modal")
 
     def allowed(self, request, datum):
@@ -17,7 +17,7 @@ class EnableLink(tables.LinkAction):
 
 class DisableLink(tables.BatchAction):
     name = "Disable"
-    verbose_name = _("Disable Rush")
+    verbose_name = _("Disable Http Relayer")
     action_present = "Disable"
     action_past = "Scheduled termination of"
     data_type_singular =_("Service")
@@ -66,7 +66,7 @@ class RushstackTable(tables.DataTable):
 
     class Meta:
         name = "rush"
-        verbose_name = _("Rush")
+        verbose_name = _("Http Relayer")
         table_actions = (EnableLink, DisableLink) 
         status_columns = ["status"]
         row_class = UpdateRow
