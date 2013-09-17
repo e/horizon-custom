@@ -22,7 +22,7 @@ class StopServDir(tables.BatchAction):
     classes = ('btn-danger', 'btn-terminate')
 
     def allowed(self, request, datum):
-        return datum.powerstate
+        return datum.powerstate == "active"
 
     def action(self, request, stack_id):
         stop(request, stack_id)
@@ -36,7 +36,7 @@ class StartServDir(tables.BatchAction):
     classes = ('btn-danger', 'btn-terminate')
 
     def allowed(self, request, datum):
-        return not datum.powerstate
+        return datum.powerstate != "active"
 
     def action(self, request, stack_id):
         start(request, stack_id)
@@ -85,6 +85,10 @@ class ServDirStackTable(tables.DataTable):
                          verbose_name=_("Status"),)
     endpoint = tables.Column("endpoint",
                          verbose_name=_("Endpoint"),)
+
+    powerstate = tables.Column("powerstate",
+            status=True,
+            verbose_name=_("Power State"),)
 
     def get_object_display(self, servdir):
         return servdir.name
