@@ -38,4 +38,8 @@ def create(request, servdir_type_id, servdir_name):
 def delete(request, servdir_id):
     return servdirclient(request).servdirs.delete(servdir_id)
 
+def start(request, servdir_id):
+    return servdirclient(request).servdirs.start(servdir_id)
 
+def stop(request, servdir_id):
+    return servdirclient(request).servdirs.stop(servdir_id)
