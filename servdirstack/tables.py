@@ -1,6 +1,6 @@
 from horizon import tables
 from django.utils.translation import ugettext_lazy as _
-from .api import get_list, get_servdir_data, delete
+from .api import get_list, get_servdir_data, delete, start, stop
 from django.template.defaultfilters import title
 from horizon.utils.filters import replace_underscores
 
@@ -13,6 +13,33 @@ class EnableLink(tables.LinkAction):
     def allowed(self, request, datum):
         return True
 
+class StopServDir(tables.BatchAction):
+    name = "stop"
+    action_present = _("Stop")
+    action_past = _("Stopping")
+    data_type_singular = _("ServDir")
+    data_type_plural = _("ServDirs")
+    classes = ('btn-danger', 'btn-terminate')
+
+    def allowed(self, request, datum):
+        return datum.powerstate == "active"
+
+    def action(self, request, stack_id):
+        stop(request, stack_id)
+
+class StartServDir(tables.BatchAction):
+    name = "start"
+    action_present = _("Start")
+    action_past = _("Starting")
+    data_type_singular = _("ServDir")
+    data_type_plural = _("ServDirs")
+    classes = ('btn-danger', 'btn-terminate')
+
+    def allowed(self, request, datum):
+        return datum.powerstate != "active"
+
+    def action(self, request, stack_id):
+        start(request, stack_id)
 
 class DisableLink(tables.BatchAction):
     name = "Disable"
@@ -59,6 +86,10 @@ class ServDirStackTable(tables.DataTable):
     endpoint = tables.Column("endpoint",
                          verbose_name=_("Endpoint"),)
 
+    powerstate = tables.Column("powerstate",
+            status=True,
+            verbose_name=_("Power State"),)
+
     def get_object_display(self, servdir):
         return servdir.name
 
@@ -69,4 +100,5 @@ class ServDirStackTable(tables.DataTable):
         table_actions = (EnableLink, DisableLink) 
         status_columns = ["status"]
         row_class = UpdateRow
+        row_actions = (StopServDir, StartServDir,)
 
