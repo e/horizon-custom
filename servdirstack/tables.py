@@ -22,7 +22,7 @@ class StopServDir(tables.BatchAction):
     classes = ('btn-danger', 'btn-terminate')
 
     def allowed(self, request, datum):
-        return datum.powerstate == "active"
+        return datum.powerstate == "active" and datum.status == "CREATE_COMPLETE"
 
     def action(self, request, stack_id):
         stop(request, stack_id)
@@ -36,7 +36,7 @@ class StartServDir(tables.BatchAction):
     classes = ('btn-danger', 'btn-terminate')
 
     def allowed(self, request, datum):
-        return datum.powerstate != "active"
+        return datum.powerstate != "active" and datum.status == "CREATE_COMPLETE"
 
     def action(self, request, stack_id):
         start(request, stack_id)
