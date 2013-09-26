@@ -1,3 +1,4 @@
+from django.core import urlresolvers
 from horizon import tables
 from django.utils.translation import ugettext_lazy as _
 from .api import get_list, get_rush_data, delete
@@ -38,6 +39,11 @@ class UpdateRow(tables.Row):
         return get_rush_data(request, rush_id)
 
 
+def get_rush_link(datum):
+    view = "horizon:project:httprelayer:detail"
+    return urlresolvers.reverse(view, args=(datum.id,))
+
+
 class RushstackTable(tables.DataTable):
     STATUS_CHOICES = (
         ("Create Complete", True),
@@ -49,7 +55,8 @@ class RushstackTable(tables.DataTable):
         ("large", "large"),
     )
     name = tables.Column("name",
-                         verbose_name=_("Name"),)
+                         verbose_name=_("Name"),
+                         link=get_rush_link)
     size = tables.Column("type",
                          verbose_name=_("Size"),)
     status = tables.Column("status",
