@@ -9,6 +9,7 @@ class SelectSizeAction(workflows.Action):
         ("1", _("Small")),
         ("2", _("Medium")),
         ("3", _("Large")),
+        ("4", _("Multinode_small")),
     )
     name = forms.CharField(label=_("Name"), required=True)
     size = forms.ChoiceField(label=_("Size"), choices=SIZE_CHOICES, required=True)
