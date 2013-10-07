@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% trans "Big Data" %}{% endblock %}
+
+{% block page_header %}
+  {% include "horizon/common/_page_header.html" with title=_("Big Data") %}
+{% endblock page_header %}
+
+
+{% block main %}
+status: {{bigdata.config.status}}<br />
+url: {{bigdata.config.url}}<br />
+api_secret: {{bigdata.config.api_secret}}<br />
+extdata: {{bigdata.config.extdata}}<br />
+ssk_pub_key: {{bigdata.config.ssk_pub_key}}<br />
+api_key: {{bigdata.config.api_key}}<br />
+id: {{bigdata.config.id}}<br />
+<!--div class="quota-dynamic">
+  <h3>{% trans "Limit Summary" %}</h3>
+    <div class="d3_quota_bar">
+        <div class="d3_pie_chart" data-used="{% widthratio 3 10 100 %}"></div>
+          <strong>{% trans "Big Data" %} <br />
+              {% blocktrans with used=3 available=3 %}Used <span> {{ used }} </span> of <span> {{ available }} </span>{% endblocktrans %}
+          </strong>
+        </div>
+      </div>
+    </div>
+</div-->
+  {{ table.render }}
+{% endblock %}
+
+

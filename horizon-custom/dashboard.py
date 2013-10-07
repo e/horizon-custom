@@ -53,7 +53,7 @@ class OrchestrationPanels(horizon.PanelGroup):
 class TDAFServices(horizon.PanelGroup):
     name = _("App Services")
     slug = "tdafservices"
-    panels = ('httprelayer', 'servdirstack', 'identity')
+    panels = ('httprelayer', 'servdirstack', 'identity', 'bigdata')
 
 
 class Project(horizon.Dashboard):
