@@ -13,7 +13,7 @@ class OverviewTab(tabs.Tab):
         return {"bigdata":     data['id'],
                 "api_secret":  data['api_secret'],
                 "ext_data":    data['extdata'],
-                "ssk_pub_key": data['ssk_pub_key'],
+                "keyname":     data['keyname'],
                 "api_key":     data['api_key'],
                 "url":         data['url'],}
 

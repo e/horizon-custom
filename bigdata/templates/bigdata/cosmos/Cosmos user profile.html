@@ -1,0 +1,159 @@
+<!--
+ Telefónica Digital - Product Development and Innovation
+
+ THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND,
+ EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE IMPLIED
+ WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A PARTICULAR PURPOSE.
+
+ Copyright (c) Telefónica Investigación y Desarrollo S.A.U.
+ All rights reserved.
+ -->
+<!--
+ Telefónica Digital - Product Development and Innovation
+
+ THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND,
+ EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE IMPLIED
+ WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A PARTICULAR PURPOSE.
+
+ Copyright (c) Telefónica Investigación y Desarrollo S.A.U.
+ All rights reserved.
+ -->
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <title>Cosmos user profile</title>
+        <link rel="stylesheet" media="screen" href="Cosmos%20user%20profile_files/main.css">
+        <link rel="shortcut icon" type="image/png" href="http://cosmos.hi.inet/assets/images/favicon.png">
+        <script type="text/javascript" src="Cosmos%20user%20profile_files/jquery-1.js"></script>
+        
+    <script type="text/javascript" src="Cosmos%20user%20profile_files/profile.js"></script>
+
+    </head>
+    <body>
+        
+    <ul id="headernav">
+        <li><a href="http://cosmos.hi.inet/logout">Logout</a></li>
+    </ul>
+
+    <h1 class="doc page-title">Profile for Francisco Mayoral (francisco.mayoral@hp.com)</h1>
+
+    <ul>
+        <li>User handle: <strong>fms</strong></li>
+        <li>Public keys
+            
+                <div class="doc key">
+                    <div class="doc name">default</div>
+                    <div class="doc signature">ssh-rsa 
+AAAAB3NzaC1yc2EAAAABIwAAAQEA11/2fvUE6ryWrniTIUEBe8pcpHPavDSMA29TpuIM6hxN5m5gqE0PF3VdbC6a7knqq5wJd6C04Yjf50MW8BXPlu76l+85YleoHZ6eqQQamV18kxBu8TuC77WuN3Kq5yN8UWrcZzKXjA0QpYUhRCzUyvLDCYE7E7+6ESxxMPkjPNS6t0AKFxPSzvG8wiwtjtZUuJBjp57hJ6kTwnx9aey1Pn4It8As9j1GJ2qiLCZcDBMvIZ+B6lSXKpY4NwgblTFYei0pSPpnWTBvvtnG86GhpiJ7H5sphtSDHmQaXyJIp0BMkeSoUNWUWUThM1iGdP6yOVUdzCUMDBRgkVp+KjVygQ==
+ fmayoral@Aizen</div>
+                </div>
+            
+        </li>
+    </ul>
+
+    <h2>Getting started</h2>
+
+    <ol>
+        <li><p>
+            System requirements are
+            <a href="http://www.python.org/download/releases/2.7/">python 2.7</a> with
+            <a href="https://pypi.python.org/pypi/setuptools">setuptools</a>.
+        </p></li>
+
+        <li><p>
+            Install the Cosmos CLI:
+            
+                <tt>easy_install http://orion01.hi.inet:8000/eggs/cosmos-py2.7.egg</tt>
+            
+        </p></li>
+
+        <li><p>Configure the tool: <tt>cosmos configure</tt>.</p></li>
+
+        <ul>
+            <li><p>
+                Use <a href="http://cosmos.hi.inet/cosmos/v1">
+                http://cosmos.hi.inet/cosmos/v1</a> as the API base URL
+            </p></li>
+            <li>
+                <p>
+                    Provide your API credentials (please, don't share with anyone):
+                    <a id="show-credentials" href="#">show credentials</a>
+                    <a id="hide-credentials" href="#" style="display: none">hide credentials</a>
+                </p>
+
+                <div id="credentials" style="display: none">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <th>API key</th>
+                                <td>a3o0wvKenDe547vhJ3PK</td>
+                            </tr>
+                            <tr>
+                                <th>API secret</th>
+                                <td>2PniWcDs5iJGikioMGg8ipjuf7ekzD1cVT1lR4kt</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </li>
+        </ul>
+
+    </ol>
+
+    <h2>Use the Cosmos CLI</h2>
+
+    <p>Cosmos CLI is a script that allows you to create, list and, work in general, with Cosmos
+       clusters from the command line.
+    </p>
+
+    <p>Cluster creation:</p>
+    <pre class="doc code">    $ cosmos create --name "Number cruncher" --size 4
+    Provisioning new cluster dfbf0ab91099442f9014c3d4e2605b63
+    </pre>
+
+    <p>List clusters:</p>
+    <pre class="doc code">    $ cosmos list
+    Available clusters:
+     * dfbf0ab91099442f9014c3d4e2605b63
+    </pre>
+
+    <p>Cluster details:</p>
+    <pre class="doc code">    $ cosmos show dfbf0ab91099442f9014c3d4e2605b63
+    {
+        "href": "http://cosmos.hi.inet/cosmos/v1/cluster/dfbf0ab91099442f9014c3d4e2605b63",
+        "id": "dfbf0ab91099442f9014c3d4e2605b63",
+        "name": "Number cruncher",
+        "size": 4,
+        "state": "provisioning",
+        "stateDescription": "Cluster is acquiring and configuring resources"
+    }
+    </pre>
+
+    <p>Accessing and using the cluster:</p>
+    <pre class="doc code">    $ cosmos ssh dfbf0ab91099442f9014c3d4e2605b63
+    [user@compute00 ~]$ hadoop jar /usr/lib/hadoop/hadoop-examples.jar ...
+    </pre>
+
+    <p>Cluster termination:</p>
+    <pre class="doc code">    $ cosmos terminate dfbf0ab91099442f9014c3d4e2605b63
+    Terminating cluster dfbf0ab91099442f9014c3d4e2605b63
+    </pre>
+
+    <p>Access the persistent storage:</p>
+    <ul>
+        <li>List files <tt>cosmos ls &lt;path&gt;</tt></li>
+        <li>Download files <tt>cosmos get &lt;remote_path&gt;  &lt;local_path&gt;</tt></li>
+        <li>Upload files <tt>cosmos put &lt;local_path&gt; &lt;remote_path&gt;</tt></li>
+        <li>Remove files <tt>cosmos rm [-r] &lt;path&gt;</tt></li>
+    </ul>
+
+    <h2>Use the REST API</h2>
+
+    <p>You can also integrate directly with the REST API to automate tasks.</p>
+
+    <p><a href="http://cosmos.hi.inet/doc.html">Play with the API</a> and learn by doing!</p>
+
+    
+
+
+</body></html>

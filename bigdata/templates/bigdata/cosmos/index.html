@@ -1,0 +1,150 @@
+
+<style>
+.key  {
+    display: block;
+    background-color: white;
+    padding: 0.5ex 1ex;
+    border: 1px solid black;
+    border-radius: 1ex;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin: 0 auto;
+    width: 70%;
+}
+
+.key .name  {
+    font-weight: bold;
+}
+.key .signature  {
+    background-color: black;
+    color: white;
+    padding: 0.5ex 1ex 1ex 1ex;
+    font-size: 100%;
+    font-family: "Courier New", Courier, monospace;
+    word-break: break-all;
+    margin-top: 1ex;
+}
+#help {
+    display: none;
+}
+#helplink {
+    position: absolute;
+    left: 120px;
+    top: -160px;
+}
+</style>
+<a id="helplink" href="#" onclick="togglehelp()">Toggle help</a>
+<div id="help">
+    <h2 style="margin-top:10px;">Getting started</h2>
+    <ol>
+        <li><p>
+            System requirements are
+            <a href="http://www.python.org/download/releases/2.7/">python 2.7</a> with
+            <a href="https://pypi.python.org/pypi/setuptools">setuptools</a>.
+        </p></li>
+        <li><p>
+            Install the Cosmos CLI:
+            
+                <tt>easy_install http://orion01.hi.inet:8000/eggs/cosmos-py2.7.egg</tt>
+            
+        </p></li>
+        <li><p>Configure the tool: <tt>cosmos configure</tt>.</p></li>
+        <ul>
+            <li><p>
+                Use <a href="http://cosmos.hi.inet/cosmos/v1">
+                http://cosmos.hi.inet/cosmos/v1</a> as the API base URL
+            </p></li>
+            <li>
+                <p>
+                    Provide your API credentials (please, don't share with anyone):
+                    <a id="show-credentials" href="#">show credentials</a>
+                    <a id="hide-credentials" href="#" style="display: none">hide credentials</a>
+                </p>
+
+                <div id="credentials" style="display: none">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <th>API key</th>
+                                <td>a3o0wvKenDe547vhJ3PK</td>
+                            </tr>
+                            <tr>
+                                <th>API secret</th>
+                                <td>2PniWcDs5iJGikioMGg8ipjuf7ekzD1cVT1lR4kt</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </li>
+        </ul>
+
+    </ol>
+
+    <h2>Use the Cosmos CLI</h2>
+
+    <p>Cosmos CLI is a script that allows you to create, list and, work in general, with Cosmos
+       clusters from the command line.
+    </p>
+
+    <p>Cluster creation:</p>
+    <pre class="doc code">    $ cosmos create --name "Number cruncher" --size 4
+    Provisioning new cluster dfbf0ab91099442f9014c3d4e2605b63
+    </pre>
+
+    <p>List clusters:</p>
+    <pre class="doc code">    $ cosmos list
+    Available clusters:
+     * dfbf0ab91099442f9014c3d4e2605b63
+    </pre>
+
+    <p>Cluster details:</p>
+    <pre class="doc code">    $ cosmos show dfbf0ab91099442f9014c3d4e2605b63
+    {
+        "href": "http://cosmos.hi.inet/cosmos/v1/cluster/dfbf0ab91099442f9014c3d4e2605b63",
+        "id": "dfbf0ab91099442f9014c3d4e2605b63",
+        "name": "Number cruncher",
+        "size": 4,
+        "state": "provisioning",
+        "stateDescription": "Cluster is acquiring and configuring resources"
+    }
+    </pre>
+
+    <p>Accessing and using the cluster:</p>
+    <pre class="doc code">    $ cosmos ssh dfbf0ab91099442f9014c3d4e2605b63
+    [user@compute00 ~]$ hadoop jar /usr/lib/hadoop/hadoop-examples.jar ...
+    </pre>
+
+    <p>Cluster termination:</p>
+    <pre class="doc code">    $ cosmos terminate dfbf0ab91099442f9014c3d4e2605b63
+    Terminating cluster dfbf0ab91099442f9014c3d4e2605b63
+    </pre>
+
+    <p>Access the persistent storage:</p>
+    <ul>
+        <li>List files <tt>cosmos ls &lt;path&gt;</tt></li>
+        <li>Download files <tt>cosmos get &lt;remote_path&gt;  &lt;local_path&gt;</tt></li>
+        <li>Upload files <tt>cosmos put &lt;local_path&gt; &lt;remote_path&gt;</tt></li>
+        <li>Remove files <tt>cosmos rm [-r] &lt;path&gt;</tt></li>
+    </ul>
+
+    <h2>Use the REST API</h2>
+
+    <p>You can also integrate directly with the REST API to automate tasks.</p>
+
+    <p><a href="http://cosmos.hi.inet/doc.html">Play with the API</a> and learn by doing!</p>
+
+    
+
+</div>
+{% block custom_js %}
+<script type="text/javascript">
+function togglehelp() {
+  var d = document.getElementById('help');
+  if (d.style.display == 'block') {
+    d.style.display = 'none';
+  } else {
+    d.style.display = 'block'
+  }
+}
+</script>
+{% endblock %}
