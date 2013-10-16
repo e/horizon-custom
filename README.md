@@ -1,4 +1,4 @@
-tdaf-ost-horizonx
+horizon custom panels
 =================
 
 Openstack panels for TDAF Services
